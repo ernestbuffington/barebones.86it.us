@@ -1,0 +1,5 @@
+language: php
+php: 
+  - 8.0
+script: 
+  - "phpunit $TRAVIS_BUILD_DIR/tests/StackoverflowTest.php"
