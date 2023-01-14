@@ -1,0 +1,24 @@
+SELECT
+  Q.user_id,
+  Q.userID,
+  Q.askedDate,
+  Q.text,
+  Q.title,
+  COALESCE(SUM(A.user_id),0) As totalAnswers,
+  COALESCE(CASE
+    WHEN QV.userID = ? AND QV.directionOfVote = 'UP'
+	   THEN 1
+    WHEN QV.userID = ? AND QV.directionOfVote = 'DOWN'
+	   THEN -1
+  END, 0) as vote,
+  SUM(IF(QV.directionOfVote='UP',1,0)) - SUM(IF(QV.directionOfVote='DOWN',1,0)) voteValue,
+  IF(A.isAccepted = 1, 1, 0) as isAnswered
+FROM
+  nuke_question Q
+LEFT JOIN nuke_answer A on A.questionID = Q.user_id
+LEFT JOIN nuke_question_vote QV on QV.questionID = Q.user_id
+GROUP BY
+  Q.user_id,
+  Q.userID,
+  Q.askedDate,
+  Q.text

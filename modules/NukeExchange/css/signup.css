@@ -1,0 +1,60 @@
+body{ 
+    background-color: #f5f5f5;
+    margin-top: 3%; 
+    padding-top: 60px;
+}
+
+.jumbotron{
+    padding-bottom: 2%;
+    padding-top: 2%;
+}
+
+@media(min-width: 1200px) {
+    .container{
+        width: 20%;
+    }
+    body {
+        padding-top: 0px;
+    }
+}
+
+#box-content{
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    height: 100%;
+    padding: 2%;
+    background-color:white;
+    box-shadow: 5px 5px 5px gray;
+}
+
+#button {
+    border:black;
+    outline: none;
+    height: 35px;
+    color: white;
+    background: hsl(206, 100%, 52%);
+    font-size: 16px;
+    text-align: center;
+    width: 270px;
+}
+
+#button:hover{
+    cursor: pointer;
+    background: hsl(206, 95%, 37%);
+    color: white;
+}
+
+
+.main [type=text],[type=user_password]{
+    width: 270px;
+    height: 35px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: hsl(206, 95%, 75%);
+  }

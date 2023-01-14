@@ -1,0 +1,4 @@
+INSERT INTO
+  nuke_answer_vote
+  VALUES
+(?, ?, ?)

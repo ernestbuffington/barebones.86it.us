@@ -1,0 +1,8 @@
+SELECT
+  user_id,
+  username,
+  user_email,
+  user_avatar
+FROM
+  nuke_users
+WHERE user_id = ?

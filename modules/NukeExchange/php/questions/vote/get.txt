@@ -1,0 +1,8 @@
+SELECT EXISTS (
+  SELECT
+    1
+  FROM
+    nuke_question_vote
+  WHERE questionID = ? AND
+        userID = ?
+) as RESULT

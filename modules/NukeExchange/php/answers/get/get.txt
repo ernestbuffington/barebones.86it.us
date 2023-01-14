@@ -1,0 +1,23 @@
+SELECT
+  A.user_id,
+  A.userID,
+  A.askedDate,
+  A.text,
+  SUM(IF(AV.directionOfVote="UP",1,0)) - SUM(IF(AV.directionOfVote="DOWN",1,0)) voteValue,
+  A.isAccepted,
+  COALESCE(CASE
+    WHEN AV.userID = ? AND AV.directionOfVote = 'UP'
+	   THEN 1
+    WHEN AV.userID = ? AND AV.directionOfVote = 'DOWN'
+	   THEN -1
+  END, 0) as vote
+FROM
+  nuke_answer A
+LEFT JOIN answerVote AV ON AV.answerID = A.user_id
+WHERE questionID = ?
+GROUP BY
+  A.user_id,
+  A.userID,
+  A.askedDate,
+  A.text,
+  A.isAccepted

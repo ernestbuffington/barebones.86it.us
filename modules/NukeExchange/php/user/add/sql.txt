@@ -1,0 +1,1 @@
+INSERT INTO user (username, user_email, user_password, user_avatar) VALUES (?,?,?,?)

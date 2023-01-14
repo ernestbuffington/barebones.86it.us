@@ -1,0 +1,7 @@
+SELECT
+  userID,
+  askedDate,
+  text
+FROM
+  nuke_answer
+WHERE userID = ?

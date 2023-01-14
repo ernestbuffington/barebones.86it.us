@@ -1,0 +1,4 @@
+UPDATE
+  nuke_question_vote
+SET directionOfVote = ?
+WHERE questionID = ? AND userID = ?

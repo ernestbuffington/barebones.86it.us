@@ -1,0 +1,4 @@
+UPDATE
+  nuke_answer
+SET isAccepted = ?
+WHERE user_id = ?
