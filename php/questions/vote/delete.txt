@@ -1,5 +1,0 @@
-DELETE
-FROM
-  QuestionVote
-WHERE questionID = ? AND
-      userID = ?

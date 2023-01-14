@@ -1,5 +1,0 @@
-DELETE
-FROM
-  AnswerVote
-WHERE answerID = ? AND
-      userID = ?

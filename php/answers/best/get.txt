@@ -1,6 +1,0 @@
-SELECT
-  ID
-FROM
-  Answer
-WHERE questionID = ? AND
-      isAccepted = 1

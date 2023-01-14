@@ -1,1 +1,0 @@
-INSERT INTO user (userName, email, password, imageUrl) VALUES (?,?,?,?)

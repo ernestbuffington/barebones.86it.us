@@ -1,4 +1,0 @@
-UPDATE
-  Answer
-SET isAccepted = ?
-WHERE ID = ?

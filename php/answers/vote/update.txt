@@ -1,4 +1,0 @@
-UPDATE
-  AnswerVote
-SET directionOfVote = ?
-WHERE answerID = ? AND userID = ?

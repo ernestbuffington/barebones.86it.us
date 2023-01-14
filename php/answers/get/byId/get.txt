@@ -1,7 +1,0 @@
-SELECT
-  userID,
-  date,
-  text
-FROM
-  Answer
-WHERE ID = ?
