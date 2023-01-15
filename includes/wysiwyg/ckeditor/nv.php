@@ -1,24 +1,5 @@
-<?php 
-/*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
- =======================================================================*/
+<?php
 
-/************************************************************************
-  Nuke-Evolution: CKeditor wysiwyg integration file
-  ============================================
-
-  Filename      : ckeditor.php
-  Author        : Travo
-  Version       : 1.0
-  Date          : 12/10/2009  (dd/mm/yyyy)
-
-  Notes         : This file based off the FCKeditor integration file by
-				  Frederico Caldeira Knabben
-				
-				  CKEditor - The text editor for Internet - http://ckeditor.com
-				  Copyright (c) 2003-2009, CKSource - Frederico Knabben.
-				  All rights reserved.
- ************************************************************************/
 /**
  * NukeViet Content Management System
  * @version 4.x
@@ -44,7 +25,7 @@ if (!defined('NV_MAINFILE')) {
  * @param string $currentpath
  * @return string
  */
-function ckeditor_getInstance($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '', $path = '', $currentpath = '')
+function nv_aleditor($textareaname, $width = '100%', $height = '450px', $val = '', $customtoolbar = '', $path = '', $currentpath = '')
 {
     global $global_config, $module_upload, $module_data, $admin_info;
 
@@ -128,25 +109,25 @@ function ckeditor_getInstance($textareaname, $width = '100%', $height = '450px',
         $replaces[] = 'clipboard_handleImages: false';
 
         if (empty($path) and empty($currentpath)) {
-            $path = NUKE_CKEDITOR_UPLOADS_DIR;
-            $currentpath = NUKE_CKEDITOR_UPLOADS_DIR;
+            $path = NV_UPLOADS_DIR;
+            $currentpath = NV_UPLOADS_DIR;
 
-            if (!empty($module_upload) and file_exists(NUKE_CKEDITOR_UPLOADS_DIR . '/' . $module_upload . '/' . date('Y_m'))) {
-                $currentpath = NUKE_CKEDITOR_UPLOADS_DIR . '/' . $module_upload . '/' . date('Y_m');
-                $path = NUKE_CKEDITOR_UPLOADS_DIR . '/' . $module_upload;
-            } elseif (!empty($module_upload) and file_exists(NUKE_CKEDITOR_UPLOADS_DIR . '/' . $module_upload)) {
-                $currentpath = NUKE_CKEDITOR_UPLOADS_DIR . '/' . $module_upload;
+            if (!empty($module_upload) and file_exists(NV_UPLOADS_REAL_DIR . '/' . $module_upload . '/' . date('Y_m'))) {
+                $currentpath = NV_UPLOADS_DIR . '/' . $module_upload . '/' . date('Y_m');
+                $path = NV_UPLOADS_DIR . '/' . $module_upload;
+            } elseif (!empty($module_upload) and file_exists(NV_UPLOADS_REAL_DIR . '/' . $module_upload)) {
+                $currentpath = NV_UPLOADS_DIR . '/' . $module_upload;
             }
         }
 
         if (!empty($admin_info['allow_files_type'])) {
-            $replaces[] = "filebrowserUploadUrl:'" . NUKE_CKEDITOR_UPLOADS_DIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&' . NV_OP_VARIABLE . '=upload&editor=ckeditor&path=' . $currentpath . "'";
+            $replaces[] = "filebrowserUploadUrl:'" . NV_BASE_SITEURL . NV_ADMINDIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&' . NV_OP_VARIABLE . '=upload&editor=ckeditor&path=' . $currentpath . "'";
         }
         if (in_array('images', $admin_info['allow_files_type'], true)) {
-            $replaces[] = "filebrowserImageUploadUrl:'" . NUKE_CKEDITOR_UPLOADS_DIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&' . NV_OP_VARIABLE . '=upload&editor=ckeditor&path=' . $currentpath . "&type=image'";
+            $replaces[] = "filebrowserImageUploadUrl:'" . NV_BASE_SITEURL . NV_ADMINDIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&' . NV_OP_VARIABLE . '=upload&editor=ckeditor&path=' . $currentpath . "&type=image'";
         }
-        $replaces[] = "filebrowserBrowseUrl:'" . NUKE_CKEDITOR_UPLOADS_DIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&popup=1&path=' . $path . '&currentpath=' . $currentpath . "'";
-        $replaces[] = "filebrowserImageBrowseUrl:'" . NUKE_CKEDITOR_UPLOADS_DIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&popup=1&type=image&path=' . $path . '&currentpath=' . $currentpath . "'";
+        $replaces[] = "filebrowserBrowseUrl:'" . NV_BASE_SITEURL . NV_ADMINDIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&popup=1&path=' . $path . '&currentpath=' . $currentpath . "'";
+        $replaces[] = "filebrowserImageBrowseUrl:'" . NV_BASE_SITEURL . NV_ADMINDIR . '/index.php?' . NV_NAME_VARIABLE . '=upload&popup=1&type=image&path=' . $path . '&currentpath=' . $currentpath . "'";
     } else {
         // Không có quyền admin (upload file) thì gỡ các plugin upload để không bị báo lỗi
         $replaces[] = "removePlugins:'uploadfile,uploadimage'";

@@ -1,4 +1,0 @@
-INSERT INTO
-  nuke_question_vote
-  VALUES
-(?, ?, ?)

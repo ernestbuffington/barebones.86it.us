@@ -1,5 +1,0 @@
-DELETE
-FROM
-  nuke_question_vote
-WHERE questionID = ? AND
-      userID = ?

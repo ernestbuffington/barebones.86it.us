@@ -1,1 +1,0 @@
-INSERT INTO nuke_question_tag values (?, ?)

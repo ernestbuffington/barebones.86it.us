@@ -1,8 +1,0 @@
-SELECT EXISTS (
-  SELECT
-    1
-  FROM
-    nuke_answer_vote
-  WHERE answerID = ? AND
-        userID = ?
-) as RESULT

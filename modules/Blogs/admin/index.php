@@ -2332,6 +2332,11 @@ function adminBlog()
 	$date = "$tmonth $tday, $tyear @ $thour:$tmin:$tsec";
 
     OpenTable();
+	
+	global $blog_form_message;
+	
+	if(!empty($blog_form_message))
+	echo '<div align="center">'.$blog_form_message.'</div>';
 /*****[BEGIN]******************************************
  [ Mod:     Blog BBCodes                       v1.0.0 ]
  ******************************************************/
@@ -2608,13 +2613,29 @@ function previewAdminBlog($automated,
     if($writes == 0) 
     define_once('WRITES', true);
 
-    getTopics($sid);
+    getTopics(isset($sid));
     
 	if ($topic_icon != 0) 
     $topicimage = $topicname = $topictext = '';
 
-    $informant = UsernameColor($informant);
+    $informant = UsernameColor(isset($informant));
     
+	global $userinfo;
+	
+	if(!isset($aid))
+	$aid = $userinfo['username'];
+
+	if(!isset($counter))
+	$counter = 0;
+
+	if(!isset($modified))
+	$modified = actualTime();
+
+    global $board_config;
+	
+	if(!isset($time))
+	$time = FormatDate($board_config['default_dateformat'], time(), $board_config['board_timezone']);
+	
 	themearticle($aid, $informant, $time, $modified, $subject, $counter, $hometext_bb, $topic, $topicname, $topicimage, $topictext);
     
 	echo "<br /><br /><strong>"._TITLE."</strong><br />"
@@ -2852,16 +2873,23 @@ function postAdminBlog($automated,
 					   $optionText, 
 					      $assotop) 
 {
-    global $ultramode, $aid, $prefix, $db, $Version_Num, $admin_file;
-    
+    global $ultramode, $aid, $prefix, $db, $Version_Num, $admin_file, $blog_form_message;
+
+		if(empty($topic)):
+           DisplayBlogError("<strong><span class=\"blink-one\" style=\"color: red;\">Please Go Back and Select A Topic</span></strong><br /><br />You did not select a topic!");
+		  exit;
+		endif;
+
 	// Copyright (c) 2000-2005 by NukeScripts Network
     if($Version_Num >= 6.6) 
 	{ 
+	 if(isset($assotop)):
 	  if (is_countable($assotop) && count($assotop) > 0):
 	    for ($i=0; $i<count($assotop); $i++): 
 	      $associated .= "$assotop[$i]-"; 
 	    endfor; 
 	  endif;
+	 endif;
 	}
 
     // Copyright (c) 2000-2005 by NukeScripts Network
@@ -2965,7 +2993,6 @@ function postAdminBlog($automated,
             $id = 0;
         }
         
-		
 		// Copyright (c) 2000-2005 by NukeScripts Network 
         $new_sql  = "INSERT INTO ".$prefix."_stories values (NULL, 
 		                                                 '$catid', 
@@ -3201,6 +3228,8 @@ switch($op)
     break;
 
     case "RemoveBlog":
+	if(!isset($ok))
+	$ok = 0;
     removeBlog($sid, $ok);
     break;
 
@@ -3229,11 +3258,11 @@ switch($op)
     break;
 
     case "PreviewAdminBlog":
-    previewAdminBlog($automated, $year, $day, $month, $hour, $min, $subject, $hometext, $bodytext, $topic, $catid, $ihome, $alanguage, $acomm, $topic_icon, $writes, $pollTitle, $optionText, $assotop);
+    previewAdminBlog($automated, $year, $day, $month, $hour, $min, $subject, $hometext, $bodytext, $topic, $catid, $ihome, $alanguage, $acomm, $topic_icon, $writes, $pollTitle, $optionText, isset($assotop));
     break;
 
     case "PostAdminBlog":
-    postAdminBlog($automated, $year, $day, $month, $hour, $min, $subject, $hometext, $bodytext, $topic, $catid, $ihome, $alanguage, $acomm, $topic_icon, $writes, $pollTitle, $optionText, $assotop);
+    postAdminBlog($automated, $year, $day, $month, $hour, $min, $subject, $hometext, $bodytext, $topic, $catid, $ihome, $alanguage, $acomm, $topic_icon, $writes, $pollTitle, $optionText, isset($assotop));
     break;
 
     case "autoDeleteBlog":

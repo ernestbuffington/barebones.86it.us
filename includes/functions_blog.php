@@ -38,6 +38,31 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
     exit('Access Denied');
 }
 
+function actualBlogTime() {
+  global $board_config;
+  $actualTime_tempdate = FormatDate($board_config['default_dateformat'], time(), $board_config['board_timezone']);
+  return $actualTime_tempdate;
+}
+
+function DisplayBlogError($msg, $special=0) 
+{
+    if (defined('FORUM_ADMIN') || defined('IN_PHPBB') && function_exists('message_die') && !$special) {
+        message_die(GENERAL_ERROR, $msg);
+    } else {
+        include_once(NUKE_BASE_DIR.'header.php');
+        if(defined('ADMIN_FILE') && is_admin() && !$special) {
+            // GraphicAdmin();
+        }
+        OpenTable();
+        echo '<div align="center">'.$msg.'</br></br>';
+		echo '<form>';
+        echo '<input type="button" value="Go back!" onclick="history.back()">';
+        echo '</form></div>';
+        CloseTable();
+        include_once(NUKE_BASE_DIR.'footer.php');
+    }
+}
+
 function blog_save_config($config_name, $config_value){
     global $prefix, $db, $cache;
     $db->sql_query("UPDATE ".$prefix."_nsnne_config SET config_value='$config_value' WHERE config_name='$config_name'");

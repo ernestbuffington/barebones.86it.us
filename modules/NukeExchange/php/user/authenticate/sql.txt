@@ -1,6 +1,0 @@
-SELECT
-        EMAIL,
-        PASSWORD,
-        user_id
-FROM user
-WHERE user_email = ?

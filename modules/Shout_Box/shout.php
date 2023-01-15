@@ -593,7 +593,14 @@ function ShoutBox($ShoutSubmit, $ShoutComment, $shoutuid)
         $stickyResult = $db->sql_query($sql);
         $stickyRow1 = $db->sql_fetchrow($stickyResult);
         $db->sql_freeresult($stickyResult);
+        
+		if(!isset($rowColor['blockColor1']))
+		$rowColor['blockColor1'] = 'none';
 
+		if(!isset($rowColor['blockColor2']))
+		$rowColor['blockColor2'] = 'none';
+		
+		
         if ($stickyRow0) {
             if ($showBackground == 'yes') {
                 $mid_content .= "<tr><td>";
@@ -638,6 +645,13 @@ function ShoutBox($ShoutSubmit, $ShoutComment, $shoutuid)
 
         $i = 0;
 		$flag = [];
+		
+		if(!isset($rowColor['blockColor1']))
+		$rowColor['blockColor1'] = 'none';
+
+		if(!isset($rowColor['blockColor2']))
+		$rowColor['blockColor2'] = 'none';
+		
         while ($row = $db->sql_fetchrow($result)) {
             if ($flag == 1) { $bgcolor = $rowColor['blockColor1']; }
             if ($flag == 2) { $bgcolor = $rowColor['blockColor2']; }

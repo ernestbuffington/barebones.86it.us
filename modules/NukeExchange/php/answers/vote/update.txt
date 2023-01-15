@@ -1,4 +1,0 @@
-UPDATE
-  nuke_answer_vote
-SET directionOfVote = ?
-WHERE answerID = ? AND userID = ?

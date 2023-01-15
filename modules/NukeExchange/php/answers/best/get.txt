@@ -1,6 +1,0 @@
-SELECT
-  user_id
-FROM
-  nuke_answer
-WHERE questionID = ? AND
-      isAccepted = 1

@@ -1,7 +1,0 @@
-SELECT
-  userID,
-  date,
-  text
-FROM
-  nuke_answer
-WHERE user_id = ?

@@ -307,9 +307,12 @@ function display_main(){
 }
 
 function theme_edit($theme_name){
-    global $prefix, $db, $admin_file, $admlang;
+    global $prefix, $bgcolor2, $db, $admin_file, $admlang;
 	
     $theme_info = $db->sql_ufetchrow("SELECT * FROM " . $prefix . "_themes WHERE theme_name = '$theme_name'");
+	
+	if(!isset($disabled))
+	$disabled = '';
 	
 	$selected1 = ($theme_info['permissions'] == 1) ? ' selected="selected"' : "";
     $selected2 = ($theme_info['permissions'] == 2) ? ' selected="selected"' : "";
@@ -444,7 +447,7 @@ function theme_edit($theme_name){
 }
 
 function theme_install($theme_name){
-    global $prefix, $db, $admin_file, $admlang;
+    global $prefix, $bgcolor2, $db, $admin_file, $admlang;
 
     OpenTable();
 	
@@ -558,7 +561,7 @@ function update_theme($post){
 		
         $theme_info = implode(':::', $theme_info);
 		
-        if ($post['restore_default']){
+        if (isset($post['restore_default'])){
             $theme_info = implode(':::', $default);
         }
     }
@@ -605,7 +608,10 @@ function update_theme($post){
 function install_save($post){
     global $db, $prefix, $admin_file;
 	
-    $post['groups'] = (is_array($post['groups'])) ? implode('-', $post['groups']) : '';
+    if(!isset($post['groups']))
+	$post['groups'] = '';
+	
+	$post['groups'] = (is_array($post['groups'])) ? implode('-', $post['groups']) : '';
 
     $theme_info = array();
 	
@@ -619,12 +625,12 @@ function install_save($post){
 		
         $theme_info = implode(':::', $theme_info);
 		
-        if ($post['restore_default']){
+        if (isset($post['restore_default'])){
             $theme_info = implode(':::', $default);
         }
     }
 
-    $sql = "INSERT INTO " . $prefix . "_themes VALUES('" . $post['theme_name'] . "', '" . $post['groups'] . "', '" . $post['permissions'] . "', '" . $post['custom_name'] . "', '" . $post['active'] . "', '" . $theme_info . "')";
+    $sql = "REPLACE INTO ".$prefix."_themes VALUES('".$post['theme_name']."', '".$post['groups']."', '".$post['permissions']."', '".$post['custom_name']."', '".$post['active']."', '".$theme_info."')";
 	
     if ($db->sql_query($sql)){
         OpenTable();
@@ -676,7 +682,7 @@ function uninstall_theme($theme){
         CloseTable();
     }
 	
-    if (!$HTTP_POST_VARS['confirm']){
+    if (!isset($HTTP_POST_VARS['confirm'])){
         OpenTable();
 		
 		echo "<form name='confirm_uninstall' action='$admin_file.php' method='post'>\n";

@@ -1,8 +1,0 @@
-SELECT
-  T.id,
-  T.name
-FROM
-  tag T
-JOIN nuke_question_tag QT on QT.tagID = T.user_id
-JOIN nuke_question Q on Q.user_id = QT.questionID
-Where Q.user_id = ?
